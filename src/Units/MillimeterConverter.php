@@ -6,18 +6,18 @@ namespace Sunaoka\DpiConverter\Units;
 
 class MillimeterConverter extends UnitConverter
 {
-    public function toPixel(float $value): float
+    public function toPixel(): float
     {
-        return ($value * $this->dpi) / 25.4;
+        return ($this->value * $this->dpi) / 25.4;
     }
 
-    public function toPoint(float $value): float
+    public function toPoint(): float
     {
-        return ($value * 72.0) / 25.4;
+        return ($this->value * 72.0) / 25.4;
     }
 
-    public function toMillimeter(float $value): float
+    public function toMillimeter(): float
     {
-        return $value;
+        return $this->value;
     }
 }

@@ -1,21 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sunaoka\DpiConverter\Units;
 
 class PointConverter extends UnitConverter
 {
-    public function toPixel(float $value): float
+    public function toPixel(): float
     {
-        return ($value * $this->dpi) / 72.0;
+        return ($this->value * $this->dpi) / 72.0;
     }
 
-    public function toMillimeter(float $value): float
+    public function toMillimeter(): float
     {
-        return ($value * 25.4) / 72.0;
+        return ($this->value * 25.4) / 72.0;
     }
 
-    public function toPoint(float $value): float
+    public function toPoint(): float
     {
-        return $value;
+        return $this->value;
     }
 }

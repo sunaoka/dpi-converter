@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sunaoka\DpiConverter;
 
+use Sunaoka\DpiConverter\Enums\Unit;
 use Sunaoka\DpiConverter\Units\MillimeterConverter;
 use Sunaoka\DpiConverter\Units\PixelConverter;
 use Sunaoka\DpiConverter\Units\PointConverter;
@@ -20,25 +21,28 @@ class DpiConverter
 
     public function __construct(float $dpi)
     {
-        if ($dpi <= 0) {
+        if ($dpi <= 0.0) {
             throw new \InvalidArgumentException('DPI must be greater than 0.');
         }
+
         $this->dpi = $dpi;
     }
 
-    public function millimeter(): UnitConverterInterface
+    /**
+     * @param 'mm'|'pt'|'px'|Unit $unit
+     */
+    public function of(float $value, string|Unit $unit): UnitConverterInterface
     {
-        return $this->getConverter(MillimeterConverter::class);
-    }
+        if (is_string($unit)) {
+            $unit = Unit::tryFrom($unit);
+        }
 
-    public function point(): UnitConverterInterface
-    {
-        return $this->getConverter(PointConverter::class);
-    }
-
-    public function pixel(): UnitConverterInterface
-    {
-        return $this->getConverter(PixelConverter::class);
+        return match ($unit) {
+            Unit::mm => $this->getConverter(MillimeterConverter::class)->setValue($value),
+            Unit::pt => $this->getConverter(PointConverter::class)->setValue($value),
+            Unit::px => $this->getConverter(PixelConverter::class)->setValue($value),
+            default => throw new \InvalidArgumentException("Invalid unit: {$unit}"),
+        };
     }
 
     /**
