@@ -8,7 +8,7 @@ $dirs = [
 ];
 
 $rules = [
-    '@PER-CS2.0' => true,
+    '@PER-CS3x0' => true,
 ];
 
 return (new PhpCsFixer\Config())
