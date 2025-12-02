@@ -34,14 +34,13 @@ class DpiConverter
     public function of(float $value, string|Unit $unit): UnitConverterInterface
     {
         if (is_string($unit)) {
-            $unit = Unit::tryFrom($unit);
+            $unit = Unit::from($unit);
         }
 
         return match ($unit) {
             Unit::mm => $this->getConverter(MillimeterConverter::class)->setValue($value),
             Unit::pt => $this->getConverter(PointConverter::class)->setValue($value),
             Unit::px => $this->getConverter(PixelConverter::class)->setValue($value),
-            default => throw new \InvalidArgumentException("Invalid unit: {$unit}"),
         };
     }
 
