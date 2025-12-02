@@ -10,7 +10,5 @@ parameters:
         - tests/
 
     ignoreErrors:
-        - identifier: match.alwaysTrue
-          path: **src/DpiConverter.php
         - identifier: argument.type
           path: **tests/DpiConverterTest.php

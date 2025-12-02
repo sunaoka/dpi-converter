@@ -36,7 +36,7 @@ class DpiConverterTest extends TestCase
         $actual = $converter->of(1, 'px');
         self::assertInstanceOf(PixelConverter::class, $actual);
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(\ValueError::class);
         $converter->of(1, 'xx');
     }
 
